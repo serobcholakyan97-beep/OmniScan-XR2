@@ -11,6 +11,8 @@ Spectral Mineral Sonar: Real-time signal isolation using Fast Fourier Transforms
 GPS-Anchored Archiving: Automatic geolocation tagging for every scan, stored in a persistent SQLite3 database.
 Cross-Reality Visualization: Exported .obj meshes with vertex coloring for instant AR viewing on iOS or immersive exploration in VR.
 Resilient Telemetry Bridge: Low-latency hardware-to-cloud relay with automated packet-loss recovery.
+
+
 📂 Repository Structure
 OmniScan-XR2/
 ├── analysis/
