@@ -42,6 +42,5 @@ def process_spatial_data():
     })
 
 if __name__ == "__main__":
-    print("🚀 OmniScan-XR Cloud Server Initializing...")
+    print("🚀 ort Cloud Server Initializing...")
     app.run(host='0.0.0.0', port=5001)
-ort
