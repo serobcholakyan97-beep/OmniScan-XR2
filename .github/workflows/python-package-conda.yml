@@ -9,8 +9,6 @@ on:
 jobs:
   build-linux:
     runs-on: ubuntu-latest
-    strategy:
-      max-parallel: 5
 
     steps:
     - name: Checkout Repository
@@ -19,22 +17,23 @@ jobs:
     - name: Setup Conda Environment
       uses: conda-incubator/setup-miniconda@v3
       with:
-        # Use the name defined in your environment.yml
-        activate-environment: omniscan-backend 
+        activate-environment: omniscan-backend
         environment-file: environment.yml
         auto-activate-base: false
-        use-mamba: true # Mamba is significantly faster than Conda for CI
+        use-mamba: true 
 
     - name: Lint with flake8
-      # 'shell: bash -l {0}' is critical—it ensures the Conda env is activated
       shell: bash -l {0}
       run: |
-        # Stop the build if there are Python syntax errors or undefined names
+        # Stop the build if there are syntax errors
         flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-        # exit-zero treats all errors as warnings.
+        # Exit-zero treats all other errors as warnings
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
 
     - name: Test with pytest
       shell: bash -l {0}
       run: |
+        # CRITICAL: This tells Python the root directory is a source for modules.
+        # This solves the "ModuleNotFoundError: No module named 'backend'" error.
+        export PYTHONPATH=$PYTHONPATH:.
         pytest
