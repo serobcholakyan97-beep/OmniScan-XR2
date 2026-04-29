@@ -63,7 +63,7 @@ class MainActivity : ComponentActivity() {
 
             OmniScanTheme {
 
-                DashboardHUD()
+                DashboardHUD(arScanner = arScanner, pythonBridge = pythonBridge)
 
             }
 

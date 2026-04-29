@@ -29,9 +29,38 @@ import com.google.ar.core.TrackingState
 
 
 
+/* ============================================================================
+ * PROPRIETARY AND CONFIDENTIAL
+ * OmniScan-XR System - Copyright (c) 2026 Serob Cholakyan
+ * This code is protected under the OmniScan-XR Proprietary License.
+ * Commercial use or unauthorized field mining operations are strictly prohibited.
+ * ============================================================================ */
+
+package com.omniscan.xr
+
+
+
+import android.content.Context
+import android.opengl.GLSurfaceView
+import android.view.Surface
+import com.google.ar.core.Config
+import com.google.ar.core.Session
+import com.google.ar.core.Frame
+import com.google.ar.core.TrackingState
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.isActive
+import kotlinx.coroutines.withContext
+import kotlin.math.abs
+
+
+
 class ARCoreScanner(context: Context) {
 
     private var arSession: Session? = null
+    private var isScanning = false
+    private var frameProcessingJob: Job? = null
+    private var onPointCloudExtracted: ((List<FloatArray>) -> Unit)? = null
 
 
 
@@ -66,6 +95,68 @@ class ARCoreScanner(context: Context) {
         config.updateMode = Config.UpdateMode.LATEST_CAMERA_IMAGE
 
         arSession?.configure(config)
+
+    }
+
+
+
+    fun setPointCloudCallback(callback: (List<FloatArray>) -> Unit) {
+
+        onPointCloudExtracted = callback
+
+    }
+
+
+
+    suspend fun startFrameCapture() = withContext(Dispatchers.Default) {
+
+        isScanning = true
+
+        frameProcessingJob = kotlinx.coroutines.GlobalScope.launch(Dispatchers.Default) {
+
+            while (isActive && isScanning) {
+
+                try {
+
+                    val frame = arSession?.update()
+
+                    if (frame != null) {
+
+                        val pointCloud = extractPointCloud(frame)
+
+                        if (pointCloud.isNotEmpty()) {
+
+                            onPointCloudExtracted?.invoke(pointCloud)
+
+                        }
+
+                    }
+
+                } catch (e: Exception) {
+
+                    println("Frame Capture Error: ${e.message}")
+
+                }
+
+                // Small delay to avoid excessive processing
+
+                kotlinx.coroutines.delay(100)
+
+            }
+
+        }
+
+    }
+
+
+
+    suspend fun stopFrameCapture() = withContext(Dispatchers.Default) {
+
+        isScanning = false
+
+        frameProcessingJob?.cancel()
+
+        frameProcessingJob = null
 
     }
 
