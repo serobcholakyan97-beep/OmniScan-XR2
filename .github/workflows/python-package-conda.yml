@@ -6,12 +6,7 @@ jobs:
         uses: actions/checkout@v4  # This downloads your code
       
       - name: Setup Conda
-        # ... (your conda setup steps here)
-        
-
-
-
-name: Python Package using Conda
+        # ... (name: Python Package using Conda)
 
 on: [push]
 
