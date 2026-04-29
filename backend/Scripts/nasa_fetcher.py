@@ -10,20 +10,20 @@ from dotenv import load_dotenv
 load_dotenv()
 
 class NasaEarthData:
-def __init__(self):
-self.token = os.getenv("NASA_TOKEN")
-self.base_url = "https://earthdata.nasa.gov/api"
+    def __init__(self):
+        self.token = os.getenv("NASA_TOKEN")
+        self.base_url = "https://earthdata.nasa.gov/api"
 
-if not self.token:
-print("⚠️ WARNING: NASA_TOKEN missing. External API calls will fail.")
+        if not self.token:
+            print("⚠️ WARNING: NASA_TOKEN missing. External API calls will fail.")
 
-def fetch_emit_data(self, lat, lon):
-if not self.token:
-return {"status": "offline_simulated", "data": None}
+    def fetch_emit_data(self, lat, lon):
+        if not self.token:
+            return {"status": "offline_simulated", "data": None}
 
-headers = {
-"Authorization": f"Bearer {self.token}",
-"Content-Type": "application/json"
-}
-print(f"🛰️ Authenticating with NASA Earthdata for coords: {lat}, {lon}...")
-return {"status": "success", "data": "Hyperspectral_Cube_Loaded"}
+        headers = {
+            "Authorization": f"Bearer {self.token}",
+            "Content-Type": "application/json"
+        }
+        print(f"🛰️ Authenticating with NASA Earthdata for coords: {lat}, {lon}...")
+        return {"status": "success", "data": "Hyperspectral_Cube_Loaded"}
