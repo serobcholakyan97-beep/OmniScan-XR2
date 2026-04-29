@@ -12,7 +12,7 @@
 
 {
 
-    "name": "OmniScan-XR Cloud Core",
+    "name": "OmniScan-XR2 Cloud Core",
 
     "image": "mcr.microsoft.com/devcontainers/python:3.10",
 
