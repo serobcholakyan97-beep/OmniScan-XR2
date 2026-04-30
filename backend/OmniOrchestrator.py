@@ -1,13 +1,8 @@
 # ==============================================================================
-
 # PROPRIETARY AND CONFIDENTIAL
-
 # OmniScan-XR System - Copyright (c) 2026 Serob Cholakyan
-
 # This code is protected under the OmniScan-XR Proprietary License.
-
 # Commercial use or unauthorized field mining operations are strictly prohibited.
-
 # ==============================================================================
 
 import os
@@ -17,7 +12,8 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS
 from dotenv import load_dotenv
 
-load_dotenv() # Loads keys from .env
+
+load_dotenv()  # Loads keys from .env
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for Android app communication
@@ -28,12 +24,15 @@ logger = logging.getLogger("OmniScan-XR2-Backend")
 
 NASA_URL = os.getenv("NASA_API_URL")
 
+
 @app.route('/scan/<lat>/<lon>')
 def get_mineral_data(lat, lon):
-    # This simulates a hyperspectral check against NASA EMIT data
-    # Logic: SWIR1/SWIR2 ratio for Gold detection
+    """
+    Simulates a hyperspectral check against NASA EMIT data.
+    Logic: SWIR1/SWIR2 ratio for Gold detection.
+    """
     logger.info(f"Pinging NASA at {NASA_URL} for coordinates: {lat}, {lon}")
-    
+
     return jsonify({
         "status": "active",
         "minerals": {
@@ -43,6 +42,7 @@ def get_mineral_data(lat, lon):
         "source": "NASA_EMIT_2026"
     })
 
+
 @app.route('/relay/lidar', methods=['POST'])
 def relay_lidar_data():
     """
@@ -51,32 +51,33 @@ def relay_lidar_data():
     """
     try:
         data = request.get_json()
-        
+
         if not data or 'vertices' not in data:
             return jsonify({"error": "Invalid payload - missing vertices"}), 400
-        
+
         vertices = data.get('vertices', [])
         logger.info(f"Received {len(vertices)} point cloud vertices from Android app")
-        
+
         # Store for analysis
         session_data = {
             "points_count": len(vertices),
             "vertices": vertices,
             "status": "processing"
         }
-        
+
         # TODO: Route to topo_mapper.py and material_density.py
         logger.info("Point cloud data ready for topographic and material analysis")
-        
+
         return jsonify({
             "status": "success",
             "message": "Point cloud received and queued for analysis",
             "points_processed": len(vertices)
         }), 200
-        
+
     except Exception as e:
         logger.error(f"Bridge Error: {str(e)}")
         return jsonify({"error": str(e)}), 500
+
 
 @app.route('/status', methods=['GET'])
 def status():
@@ -87,6 +88,7 @@ def status():
         "version": "1.0.0-PRO",
         "arcore_relay": "active"
     }), 200
+
 
 if __name__ == '__main__':
     port = int(os.getenv("BACKEND_PORT", 5001))
