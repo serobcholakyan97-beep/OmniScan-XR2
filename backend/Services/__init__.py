@@ -11,7 +11,15 @@
 # ==============================================================================
 
 """
-OmniScan-XR2 Backend Package
+Service layer package for OmniScan‑XR2.
+
+This package contains reusable service classes responsible for
+external communication, business logic, and integration with
+third‑party systems such as Sentinel.
 """
 
-__version__ = "1.0.0"
+from .Sentinel_Compliance_Handler import SentinelComplianceHandler
+
+__all__ = [
+    "SentinelComplianceHandler",
+]
