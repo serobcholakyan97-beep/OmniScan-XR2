@@ -1,3 +1,10 @@
+# ==============================================================================
+# PROPRIETARY AND CONFIDENTIAL
+# OmniScan-XR System - Copyright (c) 2026
+# This code is protected under the OmniScan-XR Proprietary License.
+# Commercial use or unauthorized field mining operations are strictly prohibited.
+# ==============================================================================
+
 """
 Sentinel Compliance Handler
 
@@ -72,7 +79,9 @@ class SentinelComplianceHandler:
                 data: Dict[str, Any] = response.json()
             except ValueError as exc:
                 logger.error("Invalid JSON response from Sentinel")
-                raise ValueError("Invalid JSON response from Sentinel") from exc
+                raise ValueError(
+                    "Invalid JSON response from Sentinel"
+                ) from exc
 
         logger.debug("Compliance response received: %s", data)
         return data
