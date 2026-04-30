@@ -1,0 +1,16 @@
+name: base
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.10
+  - pip
+  - fastapi=0.110.0
+  - uvicorn=0.27.1
+  - pip:
+      - httpx # Fixes the ModuleNotFoundError in CI/CD
+      - python-dotenv
+      - pytest
+      - earthaccess # Required for NASA Earthdata login and data access
+      - pydantic
+      - pydantic-settings
