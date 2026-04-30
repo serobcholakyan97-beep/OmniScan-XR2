@@ -1,17 +1,22 @@
 # ==============================================================================
 # PROPRIETARY AND CONFIDENTIAL
-# OmniScan-XR System - Copyright (c) 2026 Serob Cholakyan
+# OmniScan-XR System - Copyright (c) 2026
+# This code is protected under the OmniScan-XR Proprietary License.
+# Commercial use or unauthorized field mining operations are strictly prohibited.
 # ==============================================================================
 
 import os
 import requests
 from dotenv import load_dotenv
 
-
 load_dotenv()
 
 
 class NasaEarthData:
+    """
+    Handles authenticated or simulated access to NASA EarthData APIs.
+    """
+
     def __init__(self):
         self.token = os.getenv("NASA_TOKEN")
         self.base_url = "https://earthdata.nasa.gov/api"
@@ -19,7 +24,7 @@ class NasaEarthData:
         if not self.token:
             print("⚠️ WARNING: NASA_TOKEN missing. External API calls will fail.")
 
-    def fetch_emit_data(self, lat, lon):
+    def fetch_emit_data(self, lat: float, lon: float) -> dict:
         """
         Fetches hyperspectral EMIT data for the given coordinates.
 
@@ -38,9 +43,18 @@ class NasaEarthData:
             "Content-Type": "application/json",
         }
 
-        print(f"🛰️ Authenticating with NASA Earthdata for coords: {lat}, {lon}...")
+        print(
+            f"🛰️ Authenticating with NASA Earthdata "
+            f"for coords: {lat}, {lon}..."
+        )
 
         # Placeholder for real NASA API call
+        # response = requests.get(
+        #     f"{self.base_url}/emit?lat={lat}&lon={lon}",
+        #     headers=headers,
+        # )
+        # return response.json()
+
         return {
             "status": "success",
             "data": "Hyperspectral_Cube_Loaded",
