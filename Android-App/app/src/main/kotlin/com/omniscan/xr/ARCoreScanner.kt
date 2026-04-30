@@ -18,8 +18,11 @@ import com.google.ar.core.Session
 import com.google.ar.core.Frame
 import com.google.ar.core.TrackingState
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlin.math.abs
 
