@@ -1,3 +1,10 @@
+# ==============================================================================
+# PROPRIETARY AND CONFIDENTIAL
+# OmniScan-XR System - Copyright (c) 2026
+# This code is protected under the OmniScan-XR Proprietary License.
+# Commercial use or unauthorized field mining operations are strictly prohibited.
+# ==============================================================================
+
 import earthaccess
 
 
@@ -13,7 +20,9 @@ class MultiDAACClient:
         """
         Retrieves temporary AWS credentials for NISAR S3 access.
         """
-        endpoint = "https://nisar.asf.earthdatacloud.nasa.gov/s3credentials"
+        endpoint = (
+            "https://nisar.asf.earthdatacloud.nasa.gov/s3credentials"
+        )
         return self.auth.get_s3_credentials(endpoint=endpoint)
 
     async def fetch_lpdaac_data(self, product: str):
