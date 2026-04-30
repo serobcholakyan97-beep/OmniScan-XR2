@@ -1,6 +1,6 @@
 # ==============================================================================
 # PROPRIETARY AND CONFIDENTIAL
-# OmniScan-XR System - Copyright (c) 2026 Serob Cholakyan
+# OmniScan-XR System - Copyright (c) 2026
 # This code is protected under the OmniScan-XR Proprietary License.
 # Commercial use or unauthorized field mining operations are strictly prohibited.
 # ==============================================================================
@@ -19,7 +19,7 @@ def reload_spectral_config():
     lib_path = "backend/Data/spectral_lib.json"
 
     if os.path.exists(lib_path):
-        with open(lib_path, "r") as f:
+        with open(lib_path, "r", encoding="utf-8") as f:
             new_config = json.load(f)
 
         print(
