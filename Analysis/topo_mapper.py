@@ -4,7 +4,7 @@
 
 # OmniScan-XR System - Copyright (c) 2026 Serob Cholakyan
 
-# This code is protected under the OmniScan-XR Proprietary License.
+# This code is protected under the OmniScan-XR2 Proprietary License.
 
 # Commercial use or unauthorized field mining operations are strictly prohibited.
 
