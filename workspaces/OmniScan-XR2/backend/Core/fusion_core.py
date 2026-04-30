@@ -10,7 +10,7 @@ from backend.Services.OmniScan_Metadata_Manager import MetadataManager
 from backend.Services.MultiDAAC_Client import MultiDAACClient
 from backend.Services.Sentinel_Compliance_Handler import SentinelHandler
 
-# Load environment variables (NASA_USER, NASA_PASS, NASA_API_KEY)
+# Load environment variables (NASA_USER, NASA_PASSwORD, NASA_TOKEN_KEY)
 load_dotenv()
 
 app = FastAPI(
